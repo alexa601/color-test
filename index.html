@@ -3,101 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LOOKSCOPE | 你的穿搭色彩顾问</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Manrope:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/lucide-static@0.468.0/font/lucide.css" />
+  <title>LOOKSCOPE | 穿搭气质图鉴</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+SC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <style>
-    :root { --ink:#1e2024; --muted:#74767b; --line:#deddd7; --paper:#f7f6f1; --white:#fffefa; --red:#e94d3d; --blue:#3e5ae4; --yellow:#ffc94a; --sage:#94a795; }
-    * { box-sizing:border-box; }
-    body { margin:0; background:var(--paper); color:var(--ink); font-family:Manrope,"Noto Sans SC",sans-serif; }
-    button,input { font:inherit; } button { cursor:pointer; }
-    .topbar { height:72px; padding:0 clamp(22px,5vw,82px); display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); background:#fbfaf6; }
-    .brand { display:flex; align-items:center; gap:10px; font-size:17px; font-weight:800; letter-spacing:0; }
-    .brand-mark { display:grid; place-items:center; width:27px; height:27px; background:var(--ink); color:#fff; font-size:14px; }
-    .top-nav { display:flex; align-items:center; gap:28px; font-size:13px; color:var(--muted); }
-    .top-nav .active { color:var(--ink); font-weight:700; }
-    .account { width:32px; height:32px; border-radius:50%; background:#e9bf93; border:0; color:var(--ink); font-weight:800; }
-    main { max-width:1340px; margin:0 auto; padding:48px clamp(22px,5vw,82px) 76px; }
-    .intro { display:flex; justify-content:space-between; gap:30px; align-items:end; padding-bottom:31px; border-bottom:2px solid var(--ink); }
-    h1 { max-width:660px; margin:0; font-family:"Noto Serif SC",serif; font-size:clamp(30px,4.1vw,52px); line-height:1.24; letter-spacing:0; }
-    .intro p { max-width:315px; margin:0 0 4px; color:var(--muted); font-size:13px; line-height:1.8; }
-    .workspace { display:grid; grid-template-columns:360px 1fr; min-height:650px; }
-    .upload-side { padding:30px 30px 28px 0; border-right:1px solid var(--line); }
-    .eyebrow { display:flex; align-items:center; gap:9px; margin-bottom:18px; font:11px "DM Mono",monospace; letter-spacing:0; text-transform:uppercase; color:var(--muted); }
-    .eyebrow b { width:7px; height:7px; background:var(--red); border-radius:50%; }
-    .photo-frame { position:relative; height:390px; overflow:hidden; background:#ddd7cf; }
-    .photo-frame img { width:100%; height:100%; object-fit:cover; display:block; filter:saturate(.88) contrast(.98); }
-    .photo-tag { position:absolute; bottom:12px; left:12px; padding:7px 9px; background:rgba(255,254,250,.92); font:10px "DM Mono",monospace; }
-    .replace { width:100%; padding:14px; margin-top:14px; border:1px solid var(--ink); background:var(--ink); color:#fff; font-weight:700; font-size:13px; }
-    .upload-note { color:var(--muted); font-size:11px; line-height:1.7; margin:14px 0 0; }
-    .privacy { display:flex; gap:9px; align-items:flex-start; margin-top:28px; padding-top:17px; border-top:1px solid var(--line); font-size:11px; line-height:1.6; color:var(--muted); }
-    .privacy i { color:var(--blue); font-size:16px; }
-    .report { padding:30px 0 0 42px; }
-    .report-head { display:flex; align-items:start; justify-content:space-between; gap:20px; }
-    .report h2 { margin:0; font-size:22px; letter-spacing:0; }
-    .report-sub { margin:6px 0 0; color:var(--muted); font-size:12px; }
-    .score { padding:8px 10px; border:1px solid var(--line); background:#fffefa; text-align:right; font:10px "DM Mono",monospace; line-height:1.6; }
-    .score strong { display:block; font:700 18px Manrope,sans-serif; color:var(--blue); }
-    .summary { display:grid; grid-template-columns:1.1fr .9fr; gap:14px; margin:25px 0 18px; }
-    .summary-main { padding:22px; background:var(--yellow); min-height:152px; }
-    .summary-main h3 { margin:0 0 10px; font:700 13px Manrope,sans-serif; }
-    .summary-main p { margin:0; max-width:360px; font-family:"Noto Serif SC",serif; font-size:18px; line-height:1.65; }
-    .traits { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
-    .trait { padding:15px; background:var(--white); }
-    .trait span { display:block; color:var(--muted); font:10px "DM Mono",monospace; }
-    .trait b { display:block; margin-top:7px; font-size:13px; }
-    .section-label { display:flex; justify-content:space-between; align-items:center; margin:25px 0 12px; }
-    .section-label h3 { font-size:13px; margin:0; }
-    .section-label span { color:var(--muted); font:10px "DM Mono",monospace; }
-    .palette { display:grid; grid-template-columns:repeat(5,1fr); border:1px solid var(--line); }
-    .swatch { min-width:0; padding:12px 10px 11px; border-right:1px solid var(--line); background:var(--white); }
-    .swatch:last-child { border:0; }.color { height:58px; margin-bottom:9px; }.swatch b,.swatch span { display:block; font-size:10px; }.swatch span { color:var(--muted); margin-top:3px; font-family:"DM Mono",monospace; }
-    .style-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .style-card { position:relative; overflow:hidden; padding:18px; min-height:138px; background:var(--white); border:1px solid var(--line); }
-    .style-card.primary { background:var(--blue); border-color:var(--blue); color:#fff; }.style-card .rank { font:10px "DM Mono",monospace; opacity:.7; }.style-card h4 { margin:20px 0 6px; font-size:17px; }.style-card p { margin:0; font-size:11px; line-height:1.7; opacity:.8; }.arrow { position:absolute; right:17px; bottom:16px; font-size:19px; }
-    .goals { display:flex; gap:8px; flex-wrap:wrap; }.goal { padding:8px 11px; border:1px solid var(--line); background:transparent; font-size:11px; }.goal.selected { background:var(--ink); color:#fff; border-color:var(--ink); }
-    .detail { display:flex; gap:13px; margin-top:24px; padding:14px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }.detail i { color:var(--red); font-size:20px; }.detail b { font-size:12px; }.detail p { margin:4px 0 0; color:var(--muted); font-size:11px; line-height:1.6; }
-    .hidden { display:none; }
-    @media (max-width:800px) { .top-nav { display:none; }.intro { display:block; }.intro p { margin-top:15px; }.workspace { grid-template-columns:1fr; }.upload-side { padding-right:0; border-right:0; border-bottom:1px solid var(--line); }.photo-frame { height:330px; }.report { padding:30px 0 0; }.summary { grid-template-columns:1fr; } }
-    @media (max-width:460px) { main { padding-top:30px; }.palette { grid-template-columns:repeat(3,1fr); }.swatch:nth-child(3) { border-right:0; }.swatch:nth-child(n+4) { border-top:1px solid var(--line); }.style-grid { grid-template-columns:1fr; } }
+    :root { --ink:#151515; --paper:#fff8ed; --white:#fffdf9; --orange:#ffb633; --pink:#ff5a7f; --muted:#6a665f; --line:3px solid var(--ink); }
+    *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:"Noto Sans SC",sans-serif} button,input{font:inherit}button{cursor:pointer}
+    .topbar{height:68px;background:var(--white);border-bottom:var(--line);padding:0 max(18px,calc((100vw - 1080px)/2));display:flex;align-items:center;justify-content:space-between}.brand{font-family:DotGothic16,sans-serif;font-size:20px;font-weight:900;letter-spacing:1px}.brand b{display:inline-grid;place-items:center;width:28px;height:28px;background:var(--orange);border:2px solid var(--ink);margin-right:7px;font-size:16px}.nav{display:flex;gap:24px;font-size:12px;font-weight:800}.nav span:first-child{color:var(--pink)}
+    main{max-width:1080px;margin:auto;padding:36px 18px 80px}.hero{display:flex;align-items:end;justify-content:space-between;gap:22px;margin:0 0 25px}.hero h1{font-family:DotGothic16,"Noto Sans SC",sans-serif;font-size:clamp(27px,5vw,45px);line-height:1.25;margin:0}.hero h1 em{font-style:normal;color:var(--orange);text-shadow:2px 2px 0 var(--ink)}.hero p{max-width:300px;margin:0;font-size:12px;line-height:1.8;color:var(--muted);font-weight:700}
+    .meter{display:flex;gap:7px;justify-content:center;margin:21px}.meter i{width:8px;height:8px;border-radius:50%;background:#d7d2c9}.meter i.active{background:var(--pink)}
+    .app{display:grid;grid-template-columns:310px 1fr;gap:22px}.left{align-self:start}.pixel-card{background:var(--white);border:var(--line);box-shadow:6px 6px 0 var(--orange)}.card-label{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:var(--line);font:11px DotGothic16,sans-serif}.card-label b{color:var(--pink)}.portrait{position:relative;height:334px;background:#ded5c7;overflow:hidden}.portrait img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9) contrast(1.04)}.tag{position:absolute;bottom:10px;left:10px;border:2px solid var(--ink);background:var(--white);padding:5px 8px;font:10px DotGothic16,sans-serif}.upload{width:100%;border:0;border-top:var(--line);padding:14px;background:var(--ink);color:white;font-weight:900;font-size:13px}.hint{padding:13px 14px;margin:0;font-size:11px;line-height:1.65;color:var(--muted);font-weight:700}.privacy{border-top:2px dashed #bcb5aa;padding:12px 14px;font-size:10px;line-height:1.7;color:var(--muted)}
+    .right{min-width:0}.profile-title{display:flex;gap:12px;align-items:center;margin-bottom:17px}.number{display:grid;place-items:center;width:36px;height:36px;border:var(--line);background:var(--orange);font:16px DotGothic16,sans-serif}.profile-title h2{margin:0;font-size:22px;font-weight:900}.profile-title p{margin:3px 0 0;font-size:11px;color:var(--muted);font-weight:700}.match{margin-left:auto;text-align:center;border:var(--line);background:var(--white);padding:6px 11px;font:10px DotGothic16,sans-serif}.match strong{display:block;color:var(--pink);font-size:18px;margin-top:3px}
+    .spotlight{border:var(--line);background:var(--orange);padding:19px 20px;margin-bottom:18px;box-shadow:5px 5px 0 var(--ink)}.spotlight small{font:11px DotGothic16,sans-serif}.spotlight h3{margin:9px 0 0;font-size:18px;line-height:1.55}.section-head{display:flex;align-items:center;justify-content:space-between;margin:23px 0 11px}.section-head h3{margin:0;font-size:15px}.section-head span{font:10px DotGothic16,sans-serif;color:var(--muted)}
+    .traits{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.trait{min-height:82px;padding:11px;border:var(--line);background:var(--white);box-shadow:3px 3px 0 var(--orange)}.trait small{font-size:10px;color:var(--muted);font-weight:700}.trait b{display:block;font-size:13px;margin-top:10px}.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.swatch{background:var(--white);border:var(--line);padding:8px;box-shadow:3px 3px 0 var(--orange)}.color{height:48px;border:2px solid var(--ink);margin-bottom:8px}.swatch b,.swatch small{display:block;font-size:10px}.swatch small{font-family:DotGothic16,sans-serif;color:var(--muted);margin-top:4px}.styles{display:grid;grid-template-columns:1fr 1fr;gap:13px}.style{position:relative;min-height:131px;padding:15px;border:var(--line);background:var(--white);box-shadow:4px 4px 0 var(--orange)}.style.primary{background:var(--ink);color:#fff;box-shadow:4px 4px 0 var(--pink)}.style small{font-family:DotGothic16,sans-serif;font-size:10px}.style h4{font-size:17px;margin:20px 0 6px}.style p{font-size:11px;line-height:1.6;margin:0;opacity:.8}.style .arrow{position:absolute;right:13px;bottom:10px;font-size:19px}.goals{display:flex;flex-wrap:wrap;gap:8px}.goal{border:var(--line);background:var(--white);padding:8px 11px;font-size:11px;font-weight:800;box-shadow:2px 2px 0 var(--orange)}.goal.selected{background:var(--pink);color:#fff;box-shadow:2px 2px 0 var(--ink)}.tip{display:flex;gap:11px;border-top:2px dashed #bcb5aa;margin-top:25px;padding:16px 0;font-size:12px;line-height:1.7}.tip b{color:var(--pink);font-family:DotGothic16,sans-serif}.tip p{margin:0;color:var(--muted);font-weight:700}.hidden{display:none}
+    @media(max-width:760px){.nav{display:none}.hero{display:block}.hero p{margin-top:14px}.app{grid-template-columns:1fr}.portrait{height:350px}.match{margin-left:auto}.traits{grid-template-columns:1fr 1fr}.palette{grid-template-columns:repeat(3,1fr)}}@media(max-width:420px){main{padding-top:25px}.profile-title h2{font-size:18px}.profile-title p{display:none}.match{padding:5px 7px}.styles{grid-template-columns:1fr}.hero h1{font-size:27px}}
   </style>
 </head>
 <body>
-  <header class="topbar"><div class="brand"><span class="brand-mark">L</span> LOOKSCOPE</div><nav class="top-nav"><span class="active">色彩报告</span><span>风格档案</span><span>衣橱</span></nav><button class="account" aria-label="账户">J</button></header>
+  <header class="topbar"><div class="brand"><b>L</b>LOOKSCOPE</div><nav class="nav"><span>色彩图鉴</span><span>风格档案</span><span>我的衣橱</span></nav></header>
   <main>
-    <section class="intro"><h1>让你的长相与气质，成为穿搭的起点。</h1><p>上传一张自然光下的日常照片。我们从色彩、轮廓和整体氛围中，整理出属于你的穿搭方向。</p></section>
-    <section class="workspace">
-      <aside class="upload-side">
-        <div class="eyebrow"><b></b> 01 / Portrait input</div>
-        <div class="photo-frame"><img id="portrait" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85" alt="分析示例照片" /><span class="photo-tag" id="photoTag">示例照片 / 日光</span></div>
-        <input class="hidden" id="fileInput" type="file" accept="image/*" />
-        <button class="replace" id="uploadButton"><i class="icon icon-upload"></i> 上传我的照片</button>
-        <p class="upload-note">正脸、无遮挡、自然光效果最佳。建议不使用滤镜或浓妆照片。</p>
-        <div class="privacy"><i class="icon icon-shield-check"></i><span>照片仅在当前浏览器中用于生成本次建议，不会上传或保存。</span></div>
-      </aside>
-      <section class="report">
-        <div class="report-head"><div><div class="eyebrow">02 / Your visual profile</div><h2 id="profileTitle">柔和暖调 · 自然知性</h2><p class="report-sub">从肤色底调、明暗对比与五官线条得出的综合色彩建议</p></div><div class="score">匹配度<strong id="score">92%</strong>PHOTO ANALYSIS</div></div>
-        <div class="summary"><article class="summary-main"><h3>你的穿搭关键词</h3><p id="summaryText">温暖、低对比、有呼吸感。柔软质地与自然廓形，会比锐利的高对比更衬你。</p></article><div class="traits"><div class="trait"><span>肤色底调</span><b id="undertone">偏暖中性</b></div><div class="trait"><span>五官线条</span><b id="lines">柔和圆润</b></div><div class="trait"><span>对比度</span><b id="contrast">中低对比</b></div><div class="trait"><span>最佳饱和度</span><b id="saturation">柔和低饱和</b></div></div></div>
-        <div class="section-label"><h3>适合你的色彩</h3><span>COLOR EDIT / 05</span></div>
-        <div class="palette" id="palette"></div>
-        <div class="section-label"><h3>风格方向</h3><span>STYLE EDIT / 02</span></div>
-        <div class="style-grid" id="styleGrid"></div>
-        <div class="section-label"><h3>想强调的印象</h3><span>可随时调整</span></div>
-        <div class="goals"><button class="goal selected" data-goal="自然松弛">自然松弛</button><button class="goal" data-goal="更显专业">更显专业</button><button class="goal" data-goal="更有亲和力">更有亲和力</button><button class="goal" data-goal="更有个性">更有个性</button></div>
-        <div class="detail"><i class="icon icon-sparkles"></i><div><b id="detailTitle">优先尝试：亚麻白、橄榄绿与焦糖棕</b><p id="detailText">用同色系的深浅变化代替强烈撞色；配饰选哑光金色或暖银色，整体会更完整。</p></div></div>
+    <section class="hero"><h1>你的<span>穿搭</span><em>图鉴</em>，<br>从一张照片开始。</h1><p>识别整体色彩倾向与视觉气质，为你整理更好穿、更像自己的色系和风格。</p></section>
+    <div class="meter"><i></i><i></i><i class="active"></i><i></i></div>
+    <div class="app">
+      <aside class="left"><div class="pixel-card"><div class="card-label"><span>01 / 照片输入</span><b id="photoTag">示例</b></div><div class="portrait"><img id="portrait" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85" alt="风格分析示例照片"><span class="tag">日常光线 / 正脸</span></div><input class="hidden" id="fileInput" type="file" accept="image/*"><button class="upload" id="uploadButton">+ 上传我的照片</button><p class="hint">自然光、正脸、无遮挡效果最佳。建议不使用滤镜或浓妆照片。</p><div class="privacy">照片只在你的浏览器中用于本次分析，不会上传或保存。</div></div></aside>
+      <section class="right"><div class="profile-title"><span class="number">02</span><div><h2 id="profileTitle">柔和暖调 · 自然知性</h2><p>综合色彩 · 五官线条 · 整体氛围</p></div><div class="match">匹配度<strong id="score">92%</strong></div></div>
+        <article class="spotlight"><small>YOUR STYLE KEYWORDS</small><h3 id="summaryText">温暖、低对比、有呼吸感。<br>柔软质地与自然廓形最衬你。</h3></article>
+        <div class="section-head"><h3>气质小档案</h3><span>PROFILE / 04</span></div><div class="traits"><div class="trait"><small>肤色底调</small><b id="undertone">偏暖中性</b></div><div class="trait"><small>五官线条</small><b id="lines">柔和圆润</b></div><div class="trait"><small>视觉对比</small><b id="contrast">中低对比</b></div><div class="trait"><small>适合饱和度</small><b id="saturation">柔和低饱和</b></div></div>
+        <div class="section-head"><h3>适合你的色彩</h3><span>COLOR EDIT / 05</span></div><div class="palette" id="palette"></div>
+        <div class="section-head"><h3>风格方向</h3><span>STYLE EDIT / 02</span></div><div class="styles" id="styleGrid"></div>
+        <div class="section-head"><h3>这次想强调</h3><span>点击切换</span></div><div class="goals"><button class="goal selected" data-goal="自然松弛">自然松弛</button><button class="goal" data-goal="更显专业">更显专业</button><button class="goal" data-goal="更有亲和力">更有亲和力</button><button class="goal" data-goal="更有个性">更有个性</button></div>
+        <div class="tip"><b>TIP!</b><p><span id="detailTitle">优先尝试：亚麻白、橄榄绿与焦糖棕。</span><br><span id="detailText">用同色系深浅代替强烈撞色，哑光金色配饰会让整体更完整。</span></p></div>
       </section>
-    </section>
+    </div>
   </main>
   <script>
-    const profiles={warm:{title:'柔和暖调 · 自然知性',score:'92%',summary:'温暖、低对比、有呼吸感。柔软质地与自然廓形，会比锐利的高对比更衬你。',traits:['偏暖中性','柔和圆润','中低对比','柔和低饱和'],colors:[['#E8DDC5','亚麻白'],['#A3A66D','苔藓绿'],['#B56645','陶土棕'],['#765143','咖啡棕'],['#DCA767','蜂蜜金']],styles:[['01 / MAIN','轻法式自然','针织、棉麻、微收腰；松弛但不失精致。'],['02 / ALT','质感通勤','直线条裤装与低饱和衬衫，利落耐看。']],detail:'优先尝试：亚麻白、橄榄绿与焦糖棕',text:'用同色系的深浅变化代替强烈撞色；配饰选哑光金色或暖银色，整体会更完整。'},cool:{title:'清透冷调 · 都市克制',score:'90%',summary:'清爽、低饱和、带一点距离感。利落的线条与克制的色彩，会让气质更加突出。',traits:['偏冷中性','线条利落','中等对比','灰调低饱和'],colors:[['#F0EFF0','冷白'],['#91A5B6','雾霾蓝'],['#7A7B88','石墨灰'],['#7C706F','灰豆沙'],['#334050','深海蓝']],styles:[['01 / MAIN','韩系清冷','灰调色彩、宽松西装与有垂感的长线条。'],['02 / ALT','极简都市','干净剪裁与少量金属细节，克制而有力量。']],detail:'优先尝试：冷白、雾蓝与石墨灰',text:'保持整体的低饱和度，避免荧光色与大面积暖黄；配饰可选银色和珍珠光泽。'}};
-    let current='warm'; const palette=document.getElementById('palette'), styleGrid=document.getElementById('styleGrid');
-    function render(key){const p=profiles[key];current=key; document.getElementById('profileTitle').textContent=p.title;document.getElementById('score').textContent=p.score;document.getElementById('summaryText').textContent=p.summary;['undertone','lines','contrast','saturation'].forEach((id,i)=>document.getElementById(id).textContent=p.traits[i]);document.getElementById('detailTitle').textContent=p.detail;document.getElementById('detailText').textContent=p.text;palette.innerHTML=p.colors.map(c=>`<div class="swatch"><div class="color" style="background:${c[0]}"></div><b>${c[1]}</b><span>${c[0]}</span></div>`).join('');styleGrid.innerHTML=p.styles.map((s,i)=>`<article class="style-card ${i===0?'primary':''}"><span class="rank">${s[0]}</span><h4>${s[1]}</h4><p>${s[2]}</p><span class="arrow">↗</span></article>`).join('');}
-    render(current);
-    document.getElementById('uploadButton').onclick=()=>document.getElementById('fileInput').click();
-    document.getElementById('fileInput').onchange=e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{document.getElementById('portrait').src=ev.target.result;document.getElementById('photoTag').textContent='你的照片 / 已分析'; const img=new Image();img.onload=()=>{const c=document.createElement('canvas'),x=c.getContext('2d');c.width=c.height=32;x.drawImage(img,0,0,32,32);const d=x.getImageData(0,0,32,32).data;let warmth=0;for(let i=0;i<d.length;i+=4)warmth+=d[i]-d[i+2];render(warmth>0?'warm':'cool');};img.src=ev.target.result;};reader.readAsDataURL(file);};
-    document.querySelectorAll('.goal').forEach(b=>b.onclick=()=>{document.querySelectorAll('.goal').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');if(b.dataset.goal==='更显专业')render('cool');if(b.dataset.goal==='自然松弛')render('warm');});
+    const profiles={warm:{title:'柔和暖调 · 自然知性',score:'92%',summary:'温暖、低对比、有呼吸感。<br>柔软质地与自然廓形最衬你。',traits:['偏暖中性','柔和圆润','中低对比','柔和低饱和'],colors:[['#EFE0C5','亚麻白'],['#9EA36A','苔藓绿'],['#B86645','陶土棕'],['#765043','咖啡棕'],['#E2AC61','蜂蜜金']],styles:[['01 / 主风格','轻法式自然','针织、棉麻、微收腰；松弛但不失精致。'],['02 / 延展风格','质感通勤','低饱和衬衫与直线条裤装，利落耐看。']],detail:'优先尝试：亚麻白、橄榄绿与焦糖棕。',text:'用同色系深浅代替强烈撞色，哑光金色配饰会让整体更完整。'},cool:{title:'清透冷调 · 都市克制',score:'90%',summary:'清爽、低饱和、带一点距离感。<br>利落线条与克制色彩最衬你。',traits:['偏冷中性','线条利落','中等对比','灰调低饱和'],colors:[['#F0EFF0','冷白'],['#91A5B6','雾霾蓝'],['#7B7C87','石墨灰'],['#836F73','灰豆沙'],['#354052','深海蓝']],styles:[['01 / 主风格','韩系清冷','灰调色彩、宽松西装与垂感长线条。'],['02 / 延展风格','极简都市','干净剪裁与少量金属细节，克制而有力量。']],detail:'优先尝试：冷白、雾蓝与石墨灰。',text:'保持整体低饱和，银色与珍珠光泽配饰会更加协调。'}};
+    const palette=document.querySelector('#palette'),styles=document.querySelector('#styleGrid');
+    function render(key){const p=profiles[key];document.querySelector('#profileTitle').textContent=p.title;document.querySelector('#score').textContent=p.score;document.querySelector('#summaryText').innerHTML=p.summary;['undertone','lines','contrast','saturation'].forEach((id,i)=>document.querySelector('#'+id).textContent=p.traits[i]);document.querySelector('#detailTitle').textContent=p.detail;document.querySelector('#detailText').textContent=p.text;palette.innerHTML=p.colors.map(c=>`<article class="swatch"><div class="color" style="background:${c[0]}"></div><b>${c[1]}</b><small>${c[0]}</small></article>`).join('');styles.innerHTML=p.styles.map((s,i)=>`<article class="style ${i===0?'primary':''}"><small>${s[0]}</small><h4>${s[1]}</h4><p>${s[2]}</p><span class="arrow">↗</span></article>`).join('')}
+    render('warm'); document.querySelector('#uploadButton').onclick=()=>document.querySelector('#fileInput').click();
+    document.querySelector('#fileInput').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=x=>{document.querySelector('#portrait').src=x.target.result;document.querySelector('#photoTag').textContent='已分析';const im=new Image();im.onload=()=>{const c=document.createElement('canvas'),g=c.getContext('2d');c.width=c.height=32;g.drawImage(im,0,0,32,32);const d=g.getImageData(0,0,32,32).data;let n=0;for(let i=0;i<d.length;i+=4)n+=d[i]-d[i+2];render(n>0?'warm':'cool')};im.src=x.target.result};r.readAsDataURL(f)};
+    document.querySelectorAll('.goal').forEach(b=>b.onclick=()=>{document.querySelectorAll('.goal').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');if(b.dataset.goal==='更显专业'||b.dataset.goal==='更有个性')render('cool');else render('warm')});
   </script>
 </body>
 </html>
