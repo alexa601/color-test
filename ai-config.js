@@ -1,2 +1,1 @@
-// Public site uses local color sampling until the AI Worker is deployed.
-window.COLOR_TEST_AI_ENDPOINT = '';
+window.COLOR_TEST_AI_ENDPOINT = 'https://lookscope-ai.color-test-ai-worker.workers.dev/analyze';
