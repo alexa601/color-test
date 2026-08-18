@@ -3,28 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LOOKSCOPE | 上传照片</title>
+  <title>Color Test | 上传照片</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+SC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="topbar"><a class="brand" href="index.html"><b>L</b>LOOKSCOPE</a><span class="step">STEP 01 / 上传照片</span></header>
-  <main class="upload-page">
-    <section class="upload-intro"><p class="eyebrow">PERSONAL COLOR & STYLE</p><h1>上传一张照片，<br>开始你的<em>穿搭图鉴</em>。</h1><p>我们会在下一页根据脸部区域的色温、明暗、清浊与对比度，生成专属的色系和风格建议。</p></section>
-    <section class="uploader-card" id="dropZone">
-      <div class="preview-shell"><img id="preview" alt="上传照片预览"><div class="empty-state" id="emptyState"><span>+</span><b>选择一张日常照片</b><small>JPG / PNG / WEBP，建议单人正脸自然光</small></div><span class="preview-tag" id="previewTag">等待照片</span></div>
-      <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp" hidden>
-      <div class="upload-actions"><button class="secondary-btn" id="chooseButton">选择照片</button><button class="primary-btn" id="analyzeButton" disabled>开始分析 <span>→</span></button></div>
-      <p class="privacy-note">照片只保留在当前浏览器会话中，用于生成本次报告；不会被上传或保存。</p>
+  <header class="site-header"><a class="brand" href="index.html">COLOR <i>TEST</i></a><span>PERSONAL COLOR ANALYSIS</span></header>
+  <main class="upload-layout">
+    <section class="intro">
+      <p class="kicker">STEP 01 · PHOTO UPLOAD</p>
+      <h1>找到属于你的<br><em>色彩方向</em></h1>
+      <p class="intro-copy">上传一张自然光下的清晰个人照片，AI 将为本次照片生成专属的颜色建议与穿搭方向。</p>
     </section>
-    <section class="tips"><article><b>01</b><div><h2>自然光线</h2><p>避免强滤镜与背光，肤色判断会更稳定。</p></div></article><article><b>02</b><div><h2>清晰正脸</h2><p>露出额头与面颊，减少口罩、墨镜遮挡。</p></div></article><article><b>03</b><div><h2>一人入镜</h2><p>请上传单人照片，确保识别对象清晰。</p></div></article></section>
+    <section class="upload-panel" id="dropZone">
+      <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+      <div class="image-stage">
+        <img id="preview" alt="照片预览">
+        <div class="upload-empty" id="emptyState">
+          <button class="plus" id="plusButton" type="button" aria-label="Choose photo">+</button>
+          <strong>上传个人照片</strong>
+          <small>JPG、PNG 或 WEBP，最大 6 MB</small>
+        </div>
+        <span class="image-label" id="imageLabel">等待照片</span>
+      </div>
+      <div class="upload-controls">
+        <button class="button button-secondary" id="chooseButton" type="button">选择照片</button>
+        <button class="button button-primary" id="analyzeButton" type="button" disabled>开始 AI 分析 <b>→</b></button>
+      </div>
+      <p class="privacy">照片仅用于本次报告。启用 AI 时，照片会发送至配置的 AI Worker 进行分析，但不会由本产品保存。</p>
+    </section>
+    <section class="photo-notes" aria-label="拍摄建议">
+      <article><b>01</b><div><h2>自然光线</h2><p>避开强滤镜、背光和夸张彩色灯光。</p></div></article>
+      <article><b>02</b><div><h2>清晰正脸</h2><p>露出面部轮廓，减少口罩和墨镜遮挡。</p></div></article>
+      <article><b>03</b><div><h2>单人入镜</h2><p>优先选择背景简洁的单人照片。</p></div></article>
+    </section>
   </main>
   <script>
-    const fileInput=document.querySelector('#fileInput'),preview=document.querySelector('#preview'),empty=document.querySelector('#emptyState'),tag=document.querySelector('#previewTag'),start=document.querySelector('#analyzeButton'),drop=document.querySelector('#dropZone');let photoData='';
-    function setPhoto(file){if(!file||!file.type.startsWith('image/'))return;const reader=new FileReader();reader.onload=e=>{photoData=e.target.result;preview.src=photoData;preview.classList.add('visible');empty.hidden=true;tag.textContent='照片已就绪';start.disabled=false};reader.readAsDataURL(file)}
-    document.querySelector('#chooseButton').onclick=()=>fileInput.click();fileInput.onchange=e=>setPhoto(e.target.files[0]);drop.ondragover=e=>{e.preventDefault();drop.classList.add('dragging')};drop.ondragleave=()=>drop.classList.remove('dragging');drop.ondrop=e=>{e.preventDefault();drop.classList.remove('dragging');setPhoto(e.dataTransfer.files[0])};start.onclick=()=>{if(!photoData)return;sessionStorage.setItem('lookscope-photo',photoData);location.href='analysis.html'};
+    const input = document.querySelector('#fileInput');
+    const preview = document.querySelector('#preview');
+    const empty = document.querySelector('#emptyState');
+    const label = document.querySelector('#imageLabel');
+    const analyze = document.querySelector('#analyzeButton');
+    const dropZone = document.querySelector('#dropZone');
+    const supportedTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
+    let photoData = '';
+
+    function setPhoto(file) {
+      if (!file || !supportedTypes.has(file.type)) { alert('仅支持 JPG、PNG 和 WEBP 图片。'); return; }
+      if (file.size > 6 * 1024 * 1024) { alert('请上传小于 6 MB 的图片。'); return; }
+      const reader = new FileReader();
+      reader.onload = event => {
+        photoData = event.target.result;
+        preview.src = photoData;
+        preview.classList.add('is-visible');
+        empty.hidden = true;
+        label.textContent = '照片已就绪';
+        analyze.disabled = false;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    const openFilePicker = () => input.click();
+    document.querySelector('#chooseButton').addEventListener('click', openFilePicker);
+    document.querySelector('#plusButton').addEventListener('click', openFilePicker);
+    input.addEventListener('change', event => setPhoto(event.target.files[0]));
+    dropZone.addEventListener('dragover', event => { event.preventDefault(); dropZone.classList.add('is-dragging'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('is-dragging'));
+    dropZone.addEventListener('drop', event => { event.preventDefault(); dropZone.classList.remove('is-dragging'); setPhoto(event.dataTransfer.files[0]); });
+    analyze.addEventListener('click', () => {
+      if (!photoData) return;
+      sessionStorage.setItem('color-test-photo', photoData);
+      sessionStorage.setItem('color-test-analysis-id', String(Date.now()));
+      location.href = 'analysis.html';
+    });
   </script>
 </body>
 </html>
